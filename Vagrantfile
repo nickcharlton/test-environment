@@ -8,7 +8,9 @@ Vagrant.configure("2") do |config|
     chef.json = {
       "dotfiles" => {
         "user" => "vagrant",
-        "group" => "vagrant"
+        "group" => "vagrant",
+        "public_key" => IO.read(File.expand_path("~/.ssh/id_rsa.pub")),
+        "private_key" => IO.read(File.expand_path("~/.ssh/id_rsa"))
       }
     }
 
