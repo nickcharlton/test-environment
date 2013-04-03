@@ -3,8 +3,10 @@
   package pkg
 end
 
+home_dir = "/home/#{node['dotfiles']['user']}"
+
 # setup ssh keys
-file "/home/#{node['dotfiles']['user']}/.ssh/id_rsa" do
+file "#{home_dir}/.ssh/id_rsa" do
   owner node['dotfiles']['user']
   group node['dotfiles']['group']
   mode "0600"
@@ -12,7 +14,7 @@ file "/home/#{node['dotfiles']['user']}/.ssh/id_rsa" do
   action :create
 end
 
-file "/home/#{node['dotfiles']['user']}/.ssh/id_rsa.pub" do
+file "#{home_dir}/.ssh/id_rsa.pub" do
   owner node['dotfiles']['user']
   group node['dotfiles']['group']
   mode "0600"
@@ -21,7 +23,7 @@ file "/home/#{node['dotfiles']['user']}/.ssh/id_rsa.pub" do
 end
 
 # sync dotfiles
-git "/home/#{node['dotfiles']['user']}/dotfiles" do
+git "#{home_dir}/dotfiles" do
   repository "git://github.com/nickcharlton/dotfiles.git"
   reference "master"
   enable_submodules true
@@ -32,10 +34,10 @@ end
 
 # setup dotfiles
 bash "setup_dotfiles" do
-  cwd "/home/#{node['dotfiles']['user']}/dotfiles"
+  cwd "#{home_dir}/dotfiles"
   user node['dotfiles']['user']
   group node['dotfiles']['group']
-  environment "HOME" => "/home/#{node['dotfiles']['user']}"
+  environment "HOME" => home_dir
   code "./setup.sh"
 end
 
