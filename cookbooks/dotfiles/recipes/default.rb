@@ -10,7 +10,9 @@ git "/home/#{node['dotfiles']['user']}/dotfiles" do
   repository "git://github.com/nickcharlton/dotfiles.git"
   reference "master"
   enable_submodules true
-  action :sync
+  user node['dotfiles']['user']
+  group node['dotfiles']['group']
+  action :checkout
 end
 
 # setup dotfiles

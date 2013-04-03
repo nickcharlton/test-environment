@@ -7,7 +7,8 @@ Vagrant.configure("2") do |config|
   config.vm.provision :chef_solo do |chef|
     chef.json = {
       "dotfiles" => {
-        "user" => "vagrant"
+        "user" => "vagrant",
+        "group" => "vagrant"
       }
     }
 
