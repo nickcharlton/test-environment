@@ -31,4 +31,11 @@ git "/home/#{node['dotfiles']['user']}/dotfiles" do
 end
 
 # setup dotfiles
+bash "setup_dotfiles" do
+  cwd "/home/#{node['dotfiles']['user']}/dotfiles"
+  user node['dotfiles']['user']
+  group node['dotfiles']['group']
+  environment "HOME" => "/home/#{node['dotfiles']['user']}"
+  code "./setup.sh"
+end
 
